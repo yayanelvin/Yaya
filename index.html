@@ -86,44 +86,9 @@
             color: #fbbf24;
         }
 
-        /* Progress indicator for updates */
-        .update-progress {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #1a1a1a;
-            border: 1px solid #fbbf24;
-            border-radius: 50px;
-            padding: 0.8rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            z-index: 10001;
-            transform: translateY(100px);
-            transition: transform 0.3s;
-            box-shadow: 0 10px 30px -10px black;
-        }
-
-        .update-progress.show {
-            transform: translateY(0);
-        }
-
-        .progress-spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #fbbf24;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
         @keyframes gentleSpin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         /* ===== LOGIN PAGE ===== */
@@ -261,7 +226,7 @@
             color: #fbbf24;
         }
 
-        /* ===== SPLASH SCREEN ===== */
+        /* ===== CINEMATIC SPLASH SCREEN WITH PROGRESS BAR ===== */
         .splash-screen {
             position: fixed;
             top: 0;
@@ -278,7 +243,14 @@
 
         .splash-content {
             text-align: center;
-            animation: cinematicZoom 2.8s ease-in-out forwards;
+            width: 90%;
+            max-width: 700px;
+            animation: cinematicFadeIn 1.5s ease-out;
+        }
+
+        @keyframes cinematicFadeIn {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
         }
 
         .splash-logo {
@@ -295,8 +267,7 @@
             letter-spacing: 12px;
             text-transform: uppercase;
             color: #fbbf24;
-            opacity: 0;
-            animation: slideReveal 1.2s 0.4s forwards;
+            margin-bottom: 1rem;
             border-bottom: 1px solid rgba(251, 191, 36, 0.3);
             padding-bottom: 1.2rem;
             display: inline-block;
@@ -307,31 +278,105 @@
             font-weight: 300;
             letter-spacing: 6px;
             color: #737373;
-            margin-top: 2rem;
-            opacity: 0;
-            animation: fadeSlow 1.2s 1.2s forwards;
+            margin-bottom: 3rem;
             text-transform: uppercase;
         }
 
-        @keyframes cinematicZoom {
-            0% { transform: scale(1); opacity: 1; }
-            70% { transform: scale(1.08); opacity: 1; }
-            100% { transform: scale(1.15); opacity: 0; }
+        /* Progress bar integrated into splash screen */
+        .splash-progress-container {
+            width: 80%;
+            max-width: 500px;
+            margin: 2rem auto 0;
+            text-align: center;
+        }
+
+        .splash-progress-percentage {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #fbbf24;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            text-shadow: 0 0 20px #fbbf24;
+            letter-spacing: 4px;
+        }
+
+        .splash-progress-bar-container {
+            width: 100%;
+            height: 4px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .splash-progress-bar-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b, #fbbf24);
+            border-radius: 4px;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 20px #fbbf24;
+        }
+
+        .splash-progress-bar-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 60px;
+            background: rgba(255, 255, 255, 0.5);
+            filter: blur(10px);
+            animation: glowMove 2s infinite linear;
+        }
+
+        @keyframes glowMove {
+            0% { left: -60px; }
+            100% { left: 100%; }
+        }
+
+        .splash-progress-status {
+            color: #fbbf24;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .splash-sunflower-seeds {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .splash-seed {
+            width: 10px;
+            height: 10px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: seedPulse 1.5s infinite;
+            box-shadow: 0 0 10px #fbbf24;
+        }
+
+        .splash-seed:nth-child(2) { animation-delay: 0.2s; }
+        .splash-seed:nth-child(3) { animation-delay: 0.4s; }
+        .splash-seed:nth-child(4) { animation-delay: 0.6s; }
+        .splash-seed:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes seedPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.8); background: #fbbf24; box-shadow: 0 0 20px #fbbf24; }
         }
 
         @keyframes slowPulse {
             0% { filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.3)); }
             100% { filter: drop-shadow(0 0 40px rgba(251, 191, 36, 0.8)); }
-        }
-
-        @keyframes slideReveal {
-            0% { opacity: 0; transform: translateY(30px); letter-spacing: 20px; }
-            100% { opacity: 1; transform: translateY(0); letter-spacing: 12px; }
-        }
-
-        @keyframes fadeSlow {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
         }
 
         /* ===== WELCOME POPUP ===== */
@@ -588,7 +633,7 @@
             100% { box-shadow: 0 0 30px #fbbf24; width: 22px; height: 22px; }
         }
 
-        /* ===== PROFESSIONAL MENU ===== */
+        /* ===== REDESIGNED PROFESSIONAL MENU ===== */
         .menu-container {
             position: relative;
         }
@@ -643,8 +688,8 @@
             position: absolute;
             top: 55px;
             right: 0;
-            width: 380px;
-            background: #141414;
+            width: 420px;
+            background: linear-gradient(145deg, #161616, #0d0d0d);
             border: 1px solid #2a2a2a;
             border-radius: 24px;
             padding: 1.8rem;
@@ -652,7 +697,7 @@
             visibility: hidden;
             transform: translateY(-15px) scale(0.98);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 30px 50px -20px black, 0 0 0 1px rgba(251, 191, 36, 0.1);
+            box-shadow: 0 30px 50px -20px black, 0 0 0 1px rgba(251, 191, 36, 0.2);
             backdrop-filter: blur(16px);
             z-index: 1000;
         }
@@ -665,26 +710,34 @@
 
         .menu-section {
             margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid #2a2a2a;
+            padding: 1.5rem;
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s;
+        }
+
+        .menu-section:hover {
+            border-color: #fbbf24;
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.1);
         }
 
         .menu-section:last-child {
-            border-bottom: none;
             margin-bottom: 0;
-            padding-bottom: 0;
         }
 
         .menu-section h3 {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            color: #737373;
+            color: #fbbf24;
             margin-bottom: 1.2rem;
             font-weight: 400;
             display: flex;
             align-items: center;
             gap: 8px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.8rem;
         }
 
         .menu-section h3 span {
@@ -692,100 +745,120 @@
             font-size: 1.2rem;
         }
 
+        /* Modern input styling */
         .admin-panel input, .admin-panel textarea, .admin-panel select {
             width: 100%;
             background: #1f1f1f;
             border: 1px solid #333;
-            padding: 0.9rem 1rem;
+            padding: 1rem 1.2rem;
             border-radius: 12px;
             color: white;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             font-family: inherit;
             transition: all 0.2s;
+            font-size: 0.95rem;
         }
 
         .admin-panel input:focus, .admin-panel textarea:focus, .admin-panel select:focus {
             outline: none;
             border-color: #fbbf24;
-            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.1);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+            background: #252525;
+        }
+
+        .admin-panel input::placeholder, .admin-panel textarea::placeholder {
+            color: #525252;
+            font-style: italic;
         }
 
         .admin-panel button {
-            background: #fbbf24;
+            background: linear-gradient(145deg, #fbbf24, #f59e0b);
             color: black;
             border: none;
-            padding: 0.9rem 1.2rem;
+            padding: 1rem 1.2rem;
             border-radius: 12px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             width: 100%;
             transition: all 0.2s;
             font-size: 0.95rem;
             letter-spacing: 0.5px;
             border: 1px solid transparent;
+            margin-bottom: 0.5rem;
         }
 
         .admin-panel button:hover {
-            background: transparent;
-            color: #fbbf24;
-            border-color: #fbbf24;
+            background: linear-gradient(145deg, #f59e0b, #fbbf24);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px #fbbf24;
         }
 
         .admin-panel button.delete-btn {
             background: #2a2a2a;
             color: #ef4444;
-            border-color: #3a3a3a;
+            border: 1px solid #3a3a3a;
         }
 
         .admin-panel button.delete-btn:hover {
             background: #ef4444;
             color: black;
             border-color: #ef4444;
+            box-shadow: 0 10px 20px -10px #ef4444;
         }
 
-        .passcode-badge {
-            background: #2a2a2a;
-            color: #fbbf24;
-            padding: 0.3rem 0.8rem;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            display: inline-flex;
+        /* Checkbox styling */
+        .checkbox-wrapper {
+            display: flex;
             align-items: center;
-            gap: 5px;
-            margin-left: 0.5rem;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: #1a1a1a;
+            border-radius: 8px;
+            border: 1px solid #333;
         }
 
-        .protected-badge {
-            background: rgba(251, 191, 36, 0.15);
-            color: #fbbf24;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            border: 1px solid rgba(251, 191, 36, 0.3);
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: #fbbf24;
+            margin: 0;
         }
 
+        .checkbox-wrapper label {
+            color: #a3a3a3;
+            font-size: 0.95rem;
+        }
+
+        /* Video item styling */
         .video-item {
             background: #1a1a1a;
             padding: 1rem;
             border-radius: 12px;
-            margin-bottom: 0.5rem;
-            border-left: 3px solid #fbbf24;
+            margin-bottom: 0.8rem;
+            border-left: 4px solid #fbbf24;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.2s;
+            border: 1px solid #333;
+        }
+
+        .video-item:hover {
+            transform: translateX(5px);
+            border-color: #fbbf24;
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.1);
         }
 
         .video-item-info h4 {
-            font-size: 0.95rem;
+            font-size: 1rem;
             margin-bottom: 0.2rem;
+            color: white;
         }
 
         .video-item-info p {
             font-size: 0.75rem;
-            color: #737373;
+            color: #fbbf24;
         }
 
         .video-actions {
@@ -797,11 +870,12 @@
             background: transparent;
             border: 1px solid #333;
             color: #737373;
-            padding: 0.3rem 0.8rem;
+            padding: 0.4rem 1rem;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.2s;
+            font-weight: 500;
         }
 
         .lock-toggle.locked {
@@ -818,17 +892,43 @@
 
         /* Update status indicator */
         .update-status {
-            margin-top: 1rem;
-            padding: 0.8rem;
+            margin: 1rem 0;
+            padding: 1rem;
             background: #1f1f1f;
             border-radius: 8px;
             font-size: 0.85rem;
             color: #fbbf24;
             display: none;
+            border-left: 3px solid #fbbf24;
         }
 
         .update-status.active {
             display: block;
+        }
+
+        /* Passcode badge */
+        .passcode-badge {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            padding: 0.2rem 0.5rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .protected-badge {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
         }
 
         /* Video passcode modal */
@@ -869,6 +969,7 @@
             font-size: 1.8rem;
             font-weight: 300;
             margin-bottom: 0.5rem;
+            color: #fbbf24;
         }
 
         .passcode-modal-content p {
@@ -889,6 +990,12 @@
             margin-bottom: 1.5rem;
         }
 
+        .passcode-modal-content input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+        }
+
         .passcode-modal-content button {
             background: #fbbf24;
             color: black;
@@ -898,6 +1005,13 @@
             font-weight: 600;
             width: 100%;
             cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .passcode-modal-content button:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px #fbbf24;
         }
 
         /* Video grid */
@@ -963,7 +1077,7 @@
         .video-card:hover {
             transform: translateY(-6px);
             border-color: #fbbf24;
-            box-shadow: 0 20px 30px -15px black;
+            box-shadow: 0 20px 30px -15px black, 0 0 0 1px rgba(251, 191, 36, 0.3);
         }
 
         .video-wrapper {
@@ -1007,6 +1121,10 @@
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin-bottom: 0.8rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .video-info {
@@ -1097,7 +1215,8 @@
             .splash-logo { font-size: 6rem; }
             .splash-title { font-size: 2rem; letter-spacing: 6px; }
             .video-grid { grid-template-columns: 1fr; }
-            .dropdown-menu { width: 320px; right: -20px; }
+            .dropdown-menu { width: 360px; right: -20px; }
+            .menu-section { padding: 1rem; }
         }
     </style>
 </head>
@@ -1123,12 +1242,29 @@
         </div>
     </div>
 
-    <!-- SPLASH SCREEN -->
+    <!-- CINEMATIC SPLASH SCREEN WITH PROGRESS BAR -->
     <div class="splash-screen" id="splashScreen">
         <div class="splash-content">
             <div class="splash-logo">🌻</div>
             <div class="splash-title">YAYA NELVIN</div>
             <div class="splash-subtitle">private streaming space</div>
+            
+            <!-- Progress bar integrated into splash -->
+            <div class="splash-progress-container">
+                <div class="splash-progress-percentage" id="splashProgressPercentage">0%</div>
+                <div class="splash-progress-bar-container">
+                    <div class="splash-progress-bar-fill" id="splashProgressBarFill" style="width: 0%;"></div>
+                    <div class="splash-progress-bar-glow"></div>
+                </div>
+                <div class="splash-progress-status" id="splashProgressStatus">initializing private space...</div>
+                <div class="splash-sunflower-seeds">
+                    <div class="splash-seed"></div>
+                    <div class="splash-seed"></div>
+                    <div class="splash-seed"></div>
+                    <div class="splash-seed"></div>
+                    <div class="splash-seed"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1159,15 +1295,6 @@
         </div>
     </div>
 
-    <!-- UPDATE PROGRESS INDICATOR -->
-    <div class="update-progress" id="updateProgress">
-        <div class="progress-spinner"></div>
-        <div>
-            <div style="color:#fbbf24; font-size:0.85rem;">updating streaming space</div>
-            <div style="color:#737373; font-size:0.7rem;">this takes about 1 minute</div>
-        </div>
-    </div>
-
     <!-- CUSTOM NOTIFICATION CONTAINER -->
     <div id="notificationContainer"></div>
 
@@ -1182,7 +1309,7 @@
                     
                     <div style="display: flex; align-items: center; gap: 1rem;">
                         <!-- FUTURISTIC SPINNING ICON -->
-                        <div class="futuristic-icon" onclick="showNotification('🌻 Yaya Nelvin', 'private streaming space · v2.0')">
+                        <div class="futuristic-icon" onclick="showNotification('🌻 Yaya Nelvin', 'private streaming space')">
                             <div class="icon-ring"></div>
                             <div class="icon-ring"></div>
                             <div class="icon-core"></div>
@@ -1201,7 +1328,7 @@
                                 <div class="menu-section">
                                     <h3><span>🎬</span> ADMIN PANEL</h3>
                                     <div class="passcode-input" style="display:flex; gap:0.5rem; margin-bottom:1rem;">
-                                        <input type="password" id="adminPasscode" placeholder="admin passcode" style="margin-bottom:0;">
+                                        <input type="password" id="adminPasscode" placeholder="enter admin passcode" style="margin-bottom:0;">
                                         <button onclick="verifyAdmin()" style="width:auto; padding:0.9rem 1.5rem;">unlock</button>
                                     </div>
                                     
@@ -1210,12 +1337,12 @@
                                         <input type="url" id="videoUrl" placeholder="Vimeo URL (https://vimeo.com/...)">
                                         <textarea id="videoDesc" placeholder="short description" rows="2"></textarea>
                                         
-                                        <div style="display:flex; gap:0.5rem; align-items:center; margin-bottom:0.8rem;">
-                                            <input type="checkbox" id="enablePasscode" style="width:auto; margin:0;">
-                                            <label for="enablePasscode" style="color:#a3a3a3;">🔒 require passcode for this film</label>
+                                        <div class="checkbox-wrapper">
+                                            <input type="checkbox" id="enablePasscode">
+                                            <label for="enablePasscode">🔒 require passcode for this film</label>
                                         </div>
                                         
-                                        <div id="passcodeField" style="display:none; margin-bottom:0.8rem;">
+                                        <div id="passcodeField" style="display:none; margin-bottom:1rem;">
                                             <input type="text" id="videoPasscode" placeholder="set 4-6 digit passcode">
                                         </div>
                                         
@@ -1227,8 +1354,8 @@
                                         </div>
                                         
                                         <!-- Film management -->
-                                        <div style="margin-top:1.5rem;">
-                                            <h4 style="color:#737373; font-size:0.8rem; margin-bottom:0.8rem;">manage films</h4>
+                                        <div style="margin-top:2rem;">
+                                            <h4 style="color:#fbbf24; font-size:0.85rem; margin-bottom:1rem;">manage films</h4>
                                             <div id="adminFilmList"></div>
                                         </div>
                                     </div>
@@ -1237,11 +1364,11 @@
                                 <!-- SUGGESTION BOX SECTION -->
                                 <div class="menu-section">
                                     <h3><span>💭</span> SUGGESTION BOX</h3>
-                                    <textarea id="suggestionText" placeholder="what would you like to see? (films, moods, collaborations...)" rows="2"></textarea>
+                                    <textarea id="suggestionText" placeholder="what would you like to see? (films, moods, collaborations...)" rows="3"></textarea>
                                     <button onclick="submitSuggestion()" style="margin-top:0.5rem;">send suggestion</button>
                                     
                                     <div id="suggestionsView" style="margin-top:1.5rem; display:none;">
-                                        <h4 style="color:#fbbf24; font-size:0.75rem; margin-bottom:0.8rem;">📬 incoming messages</h4>
+                                        <h4 style="color:#fbbf24; font-size:0.8rem; margin-bottom:1rem;">📬 incoming messages</h4>
                                         <div id="suggestionsList"></div>
                                     </div>
                                 </div>
@@ -1249,14 +1376,14 @@
                                 <!-- SPACE INFO -->
                                 <div class="menu-section" style="border-bottom:none;">
                                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                                        <span style="color:#737373; font-size:0.8rem;">private space · v2.0</span>
+                                        <span style="color:#737373; font-size:0.8rem;">private streaming space</span>
                                         <span class="sunflower">🌻</span>
                                     </div>
-                                    <div style="margin-top:1rem; font-size:0.75rem; color:#525252;">
+                                    <div style="margin-top:1rem; font-size:0.75rem; color:#fbbf24;">
                                         <span id="protectedCount">0</span> protected films
                                     </div>
                                     <div style="margin-top:0.5rem; font-size:0.7rem; color:#525252;">
-                                        auto-sync with GitHub ✓
+                                        Yaya Nelvin · 2026
                                     </div>
                                 </div>
                             </div>
@@ -1286,7 +1413,7 @@
                     <span class="sunflower">🌻</span> Yaya Nelvin · private streaming space <span class="sunflower">🌻</span>
                 </div>
                 <div style="font-size:0.75rem; opacity:0.5;">
-                    all moments reserved · est. 2026
+                    all moments reserved · 2026
                 </div>
             </div>
         </footer>
@@ -1339,27 +1466,16 @@
             }
         }
 
-        // ========== UPDATE PROGRESS INDICATOR ==========
-        function showUpdateProgress() {
-            document.getElementById('updateProgress').classList.add('show');
-            document.getElementById('updateStatus').style.display = 'block';
-        }
-
-        function hideUpdateProgress() {
-            document.getElementById('updateProgress').classList.remove('show');
-            document.getElementById('updateStatus').style.display = 'none';
-        }
-
         // ========== LOAD VIDEOS FROM JSON ==========
         async function loadVideosFromJSON() {
             try {
-                const response = await fetch('videos.json?' + new Date().getTime()); // Cache bust
+                const response = await fetch('videos.json?' + new Date().getTime());
                 if (!response.ok) {
                     throw new Error('Could not load videos.json');
                 }
                 const data = await response.json();
                 movies = data.videos || [];
-                saveMovies(); // Save to localStorage as backup
+                saveMovies();
                 renderMovies();
                 updateWelcomeInfo();
             } catch (error) {
@@ -1394,129 +1510,6 @@
             updateProtectedCount();
         }
 
-        // ========== TRIGGER GITHUB ACTIONS UPDATE ==========
-        async function triggerGitHubUpdate(videoData) {
-            showUpdateProgress();
-            
-            try {
-                // First, save to localStorage as backup
-                saveMovies();
-                
-                // Create the JSON payload
-                const jsonData = {
-                    videos: movies.map(m => ({
-                        id: m.id,
-                        title: m.title,
-                        description: m.description,
-                        date: m.date || '2026',
-                        protected: m.protected || false,
-                        passcode: m.passcode || ''
-                    }))
-                };
-                
-                // Trigger repository_dispatch event
-                const response = await fetch(`https://api.github.com/repos/${getRepoName()}/dispatches`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'token ' + await getGitHubToken()
-                    },
-                    body: JSON.stringify({
-                        event_type: 'update-videos',
-                        client_payload: {
-                            videos: JSON.stringify(jsonData, null, 2)
-                        }
-                    })
-                });
-                
-                if (response.ok) {
-                    showNotification('🚀 Update Triggered', 'Changes will appear in 1-2 minutes');
-                    
-                    // Check for updates every 30 seconds for 3 minutes
-                    let attempts = 0;
-                    const checkInterval = setInterval(async () => {
-                        attempts++;
-                        await loadVideosFromJSON();
-                        
-                        if (attempts >= 6) { // 3 minutes
-                            clearInterval(checkInterval);
-                            hideUpdateProgress();
-                            showNotification('✅ Update Complete', 'Streaming space is now synced');
-                        }
-                    }, 30000); // 30 seconds
-                    
-                } else {
-                    throw new Error('GitHub API error');
-                }
-            } catch (error) {
-                console.error('Update failed:', error);
-                hideUpdateProgress();
-                showNotification('❌ Update Failed', 'Please try again or update videos.json manually');
-                
-                // Show manual JSON export option
-                exportToJSON();
-            }
-        }
-
-        // Helper to get repo name from current URL
-        function getRepoName() {
-            // For GitHub Pages, you can set this manually
-            // Replace with your actual username/repo
-            return 'YOUR_USERNAME/YOUR_REPO_NAME'; // <-- YOU NEED TO UPDATE THIS
-        }
-
-        // Helper to get GitHub token (you'll need to implement this securely)
-        async function getGitHubToken() {
-            // This should be handled by GitHub Actions, not client-side
-            // Return a dummy value as the actual token is in GitHub secrets
-            return 'dummy-token';
-        }
-
-        // ========== EXPORT TO JSON (Manual Fallback) ==========
-        function exportToJSON() {
-            const jsonData = {
-                videos: movies.map(m => ({
-                    id: m.id,
-                    title: m.title,
-                    description: m.description,
-                    date: m.date || '2026',
-                    protected: m.protected || false,
-                    passcode: m.passcode || ''
-                }))
-            };
-            
-            const jsonString = JSON.stringify(jsonData, null, 2);
-            const textarea = document.createElement('textarea');
-            textarea.value = jsonString;
-            textarea.style.position = 'fixed';
-            textarea.style.top = '50%';
-            textarea.style.left = '50%';
-            textarea.style.transform = 'translate(-50%, -50%)';
-            textarea.style.width = '80%';
-            textarea.style.height = '60%';
-            textarea.style.background = '#1a1a1a';
-            textarea.style.color = '#fbbf24';
-            textarea.style.padding = '2rem';
-            textarea.style.borderRadius = '16px';
-            textarea.style.zIndex = '10001';
-            textarea.style.fontFamily = 'monospace';
-            document.body.appendChild(textarea);
-            textarea.select();
-            
-            showNotification('📋 Manual Export', 'Copy this to videos.json in your repo');
-            
-            const closeHandler = (e) => {
-                if (e.key === 'Escape') {
-                    if (document.body.contains(textarea)) {
-                        document.body.removeChild(textarea);
-                    }
-                    document.removeEventListener('keydown', closeHandler);
-                }
-            };
-            document.addEventListener('keydown', closeHandler);
-        }
-
         function updateWelcomeInfo() {
             const countSpan = document.getElementById('welcomeFilmCount');
             const listSpan = document.getElementById('welcomeFilmList');
@@ -1533,27 +1526,55 @@
             document.getElementById('protectedCount').innerText = count + ' protected film' + (count !== 1 ? 's' : '');
         }
 
-        // ========== LOGIN ==========
+        // ========== LOGIN AND PROGRESS ==========
         function verifyLogin() {
             const password = document.getElementById('loginPassword').value;
             if (password === 'yaya256') {
                 document.getElementById('loginScreen').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loginScreen').style.display = 'none';
+                    startSplashProgress();
+                }, 1000);
+            } else {
+                showNotification('🔒 Access Denied', 'incorrect passcode');
+            }
+        }
+
+        function startSplashProgress() {
+            const splash = document.getElementById('splashScreen');
+            splash.style.display = 'flex';
+            
+            let progress = 0;
+            const fill = document.getElementById('splashProgressBarFill');
+            const percentage = document.getElementById('splashProgressPercentage');
+            const status = document.getElementById('splashProgressStatus');
+            
+            const progressInterval = setInterval(() => {
+                progress += 1;
+                fill.style.width = progress + '%';
+                percentage.innerText = progress + '%';
+                
+                // Update status messages at different thresholds
+                if (progress === 20) status.innerText = 'loading private space...';
+                if (progress === 40) status.innerText = 'curating films...';
+                if (progress === 60) status.innerText = 'preparing streaming area...';
+                if (progress === 80) status.innerText = 'almost ready...';
+                if (progress === 95) status.innerText = 'final touches...';
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
                     setTimeout(() => {
-                        document.getElementById('splashScreen').style.opacity = '0';
+                        splash.style.opacity = '0';
                         setTimeout(() => {
-                            document.getElementById('splashScreen').style.display = 'none';
+                            splash.style.display = 'none';
                             document.getElementById('mainContent').classList.add('visible');
                             setTimeout(() => {
                                 document.getElementById('welcomePopup').classList.add('active');
                             }, 300);
                         }, 1500);
-                    }, 2800);
-                }, 1000);
-            } else {
-                showNotification('🔒 Access Denied', 'incorrect passcode');
-            }
+                    }, 500);
+                }
+            }, 35); // 35ms * 100 = 3.5 seconds for full progress
         }
 
         // ========== RENDER MOVIES ==========
@@ -1721,6 +1742,7 @@
             
             saveMovies();
             renderAdminFilmList();
+            renderMovies(); // Re-render main grid
         }
 
         function deleteVideo(index) {
@@ -1730,6 +1752,7 @@
                 const deleted = movies.splice(index, 1)[0];
                 saveMovies();
                 renderAdminFilmList();
+                renderMovies(); // Re-render main grid
                 showNotification('🗑️ Film Removed', deleted.title + ' deleted from space');
             }
         }
@@ -1783,6 +1806,7 @@
             });
             
             saveMovies();
+            renderMovies(); // Immediately update main grid
             
             // Clear inputs
             document.getElementById('videoTitle').value = '';
@@ -1793,9 +1817,7 @@
             document.getElementById('videoPasscode').value = '';
             
             toggleMenu();
-            
-            // Trigger GitHub update
-            triggerGitHubUpdate();
+            showNotification('🎬 Film Added', title + ' is now streaming');
         }
 
         // ========== SUGGESTION FUNCTIONS ==========
@@ -1835,9 +1857,9 @@
             let html = '';
             suggestions.slice().reverse().forEach(sug => {
                 html += `
-                <div class="suggestion-item">
+                <div style="background:#1a1a1a; padding:1rem; border-radius:8px; margin-bottom:0.5rem; border-left:3px solid #fbbf24;">
                     ${sug.text}
-                    <small>${sug.timestamp}</small>
+                    <div style="font-size:0.7rem; color:#737373; margin-top:0.3rem;">${sug.timestamp}</div>
                 </div>
                 `;
             });
