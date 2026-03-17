@@ -1,10 +1,11 @@
+https://vimeo.com/1174187583
 {
   "videos": [
     {
       "id": "1174178376",
       "title": "last shrift",
       "description": "A meditation on final things — confession, silence, and the spaces between words.",
-      "date": "2025",
+      "date": "2026",
       "protected": false,
       "passcode": ""
     },
@@ -12,7 +13,15 @@
       "id": "1174173614",
       "title": "cold_storage",
       "description": "Frozen moments, preserved light — what we keep when warmth is gone.",
-      "date": "2025",
+      "date": "2026",
+      "protected": false,
+      "passcode": ""
+    },
+    {
+      "id": "1174187583",
+      "title": "Good_luck_have_fun_don't_die",
+      "description": "😱😱",
+      "date": "2026",
       "protected": false,
       "passcode": ""
     }
