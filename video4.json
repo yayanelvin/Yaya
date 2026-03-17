@@ -1,0 +1,15 @@
+{
+  "videos": [
+    {
+      "id": "VIMEO_VIDEO_ID",
+      "title": "Film Title",
+      "description": "Film description",
+      "date": "2026",
+      "protected": false,
+      "passcode": "",
+      "duration": "1:39:02",
+      "genre": "Drama",
+      "rating": 4.5
+    }
+  ]
+}
